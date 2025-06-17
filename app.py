@@ -213,16 +213,40 @@ class AutoInsuranceWorkflow(Workflow):
 # -------------------------
 st.set_page_config(page_title="Auto Claim Decision", page_icon="📄")
 st.title("📄 Auto Insurance Claim Decision")
+st.markdown("""
+    <style>
+    .centered-button {
+        display: flex;
+        justify-content: center;
+    }
+
+    div.stButton > button:first-child {
+        background-color: #28a745;
+        color: white;
+        font-weight: bold;
+        padding: 0.5em 1.5em;
+        border-radius: 8px;
+    }
+
+    div.stButton > button:first-child:hover {
+        background-color: #218838;
+        color: white;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Upload Claim JSON File", type=["json"])
+st.markdown('<div class="centered">', unsafe_allow_html=True)
+submit = st.button("Submit")
+st.markdown('</div>', unsafe_allow_html=True)
 
 import asyncio
 
 async def process_claim(claim_info):
     workflow = AutoInsuranceWorkflow(policy_retriever=retriever)
     return await workflow.run(payload={"claim_info": claim_info})
-
-if uploaded_file:
+    
+if uploaded_file and submit:
     raw_json = uploaded_file.read().decode("utf-8")
     claim_data = json.loads(raw_json)
     claim_info = ClaimInfo.model_validate(claim_data)
