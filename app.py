@@ -18,6 +18,13 @@ from llama_index.core.vector_stores.types import MetadataFilters
 # Step 0: Init
 # -------------------------
 nest_asyncio.apply()
+
+os.environ["DECLARATIONS_INDEX_NAME"] = st.secrets["DECLARATIONS_INDEX_NAME"]
+os.environ["POLICY_INDEX_NAME"] = st.secrets["POLICY_INDEX_NAME"]
+os.environ["ORGANIZATION_ID"] = st.secrets["ORGANIZATION_ID"]
+os.environ["PROJECT_NAME"] = st.secrets.get("PROJECT_NAME", "Default")
+
+
 os.environ["LLAMA_CLOUD_API_KEY"] = st.secrets["LLAMA_CLOUD_API_KEY"]
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
@@ -75,16 +82,16 @@ class LogEvent(Event):
 # Step 2: Setup Llama Cloud
 # -------------------------
 declarations_index = LlamaCloudIndex(
-    name="declarations",
-    project_name="Default",
-    organization_id="00ff99a1-76e4-4102-bfcd-c52dfb42cdc0",
+    name=os.environ["DECLARATIONS_INDEX_NAME"],
+    project_name=os.environ["PROJECT_NAME"],
+    organization_id=os.environ["ORGANIZATION_ID"] ,
     api_key=os.environ["LLAMA_CLOUD_API_KEY"],
 )
 
 policy_index = LlamaCloudIndex(
-    name="insurance policies demo",
-    project_name="Default",
-    organization_id="00ff99a1-76e4-4102-bfcd-c52dfb42cdc0",
+    name=os.environ["POLICY_INDEX_NAME"],
+    project_name=os.environ["PROJECT_NAME"],
+    organization_id=os.environ["ORGANIZATION_ID"] ,
     api_key=os.environ["LLAMA_CLOUD_API_KEY"],
 )
 
