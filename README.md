@@ -46,16 +46,6 @@ Once deployed, your app will:
 
 ---
 
-## 📂 Example Files
-Include the following in your GitHub repo:
-- `app.py` (main Streamlit app)
-- `.streamlit/secrets.toml` (DO NOT push secrets to GitHub)
-- Example claim files like `john.json`, `jane.json`
-- `test_files/policies.pdf`
-- Folder `test_files/declarations/` with client declaration files
-
----
-
 ## ✅ Sample Secrets Format (DO NOT PUSH)
 ```toml
 OPENAI_API_KEY = "sk-..."
